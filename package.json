@@ -1,0 +1,27 @@
+{
+  "name": "hack-reactor-system-design-capstone",
+  "version": "1.0.0",
+  "description": "The system design capstone project (ProductOverview component only) for Hack Reactor cohort SFO137 Group 4: Fleeting Falcons",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fleeting-Falcons/Project-Atelier-Overview.git"
+  },
+  "author": "Jacques Dubois, Kevin Yang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fleeting-Falcons/Project-Atelier-Overview/issues"
+  },
+  "homepage": "https://github.com/Fleeting-Falcons/Project-Atelier-Overview#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.8",
+    "nodemon": "^2.0.13",
+    "postgres": "^1.0.2"
+  }
+}

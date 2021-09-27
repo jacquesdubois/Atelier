@@ -1,0 +1,9 @@
+# DS Store
+.DS_STORE
+
+# Installed Packages
+/node_modules
+/package-lock.json
+
+# Config File
+/server/config.js
