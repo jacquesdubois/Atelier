@@ -9,6 +9,4 @@
 /server/config.js
 
 # Postgres Env File
-/.env
-./.env
 .env
