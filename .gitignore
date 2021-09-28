@@ -10,3 +10,5 @@
 
 # Postgres Env File
 /.env
+./.env
+.env
