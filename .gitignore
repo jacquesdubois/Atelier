@@ -10,3 +10,6 @@
 
 # Postgres Env File
 .env
+
+# CSV Data
+/data
