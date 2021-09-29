@@ -2,6 +2,11 @@
 
 -- STEP #1: In command line, type psql catwalkoverview
 
+-- STEP #2: create 'data' directory in SDC directory; move csv data files into 'data'
+-- product.csv, features.csv, related.csv, styles.csv, skus.csv, photos.csv
+
+-- Step #3: run SQL script below to load data into db
+
 COPY products
 FROM '/Users/jacquesdubois/Desktop/HRSF-137/SDC/data/product.csv'
 WITH (FORMAT CSV, HEADER true, NULL 'null');
