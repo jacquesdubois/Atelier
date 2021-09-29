@@ -1,71 +1,60 @@
--- DROP DATABASE IF EXISTS test;
+-- DROP DATABASE IF EXISTS CatwalkOverview;
 -- CREATE DATABASE CatwalkOverview;
-
--- \c CatwalkOverview
-
--- Add more not nulls
--- Add additional validation
 
 CREATE TABLE products(
     id INT UNIQUE NOT NULL,
-    name VARCHAR(30) UNIQUE NOT NULL,
-    slogan VARCHAR(50) NOT NULL,
-    description VARCHAR(250) NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    slogan VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
     category VARCHAR(30) NOT NULL,
-    default_price INT NOT NULL CHECK (default_price > 0),
-    created_at VARCHAR(30) NOT NULL,
-    updated_at VARCHAR(30) NOT NULL CHECK (updated_at > created_at),
+    default_price INT NOT NULL,
+    -- created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP CHECK (updated_at >= created_at),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE features(
     id INT UNIQUE NOT NULL,
-    feature VARCHAR(30) NOT NULL,
-    value VARCHAR(30) NOT NULL,
     product_id INT NOT NULL,
+    feature VARCHAR(30) NOT NULL,
+    value VARCHAR(30),
     PRIMARY KEY (id),
-    FOREIGN KEY (product_id)
-        REFERENCES products (id)
+    FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 CREATE TABLE related(
     id INT UNIQUE NOT NULL,
     product_id INT NOT NULL,
     related_id INT NOT NULL,
-    -- orderVar INT,
     PRIMARY KEY (id),
-    FOREIGN KEY (product_id)
-        REFERENCES products (id)
+    FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 CREATE TABLE styles(
     id INT UNIQUE NOT NULL,
-    name VARCHAR(30) NOT NULL,
-    original_price INT NOT NULL CHECK (original_price > sale_price AND original_price > 0),
-    sale_price INT CHECK (sale_price = null OR sale_price < original_price),
-    "default?" BOOLEAN NOT NULL,
     product_id INT NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    sale_price INT CHECK (sale_price = null OR sale_price <= original_price),
+    original_price INT NOT NULL CHECK (original_price >= sale_price),
+    "default?" BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 CREATE TABLE skus(
     id INT UNIQUE NOT NULL,
-    quantity INT NOT NULL,
-    size VARCHAR(10) NOT NULL,
     style_id INT,
+    size VARCHAR(10) NOT NULL,
+    quantity INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (style_id) REFERENCES styles (id)
 );
 
 CREATE TABLE photos(
     id INT UNIQUE NOT NULL,
-    url VARCHAR(200) NOT NULL,
-    thumbnail_url VARCHAR(200) NOT NULL,
     style_id INT NOT NULL,
+    url TEXT NOT NULL,
+    thumbnail_url TEXT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (style_id)
-        REFERENCES styles (id)
+    FOREIGN KEY (style_id) REFERENCES styles (id)
 );
-
-\d
