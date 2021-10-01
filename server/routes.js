@@ -1,21 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const controllers = require('./controllers.js');
 
 /// /////////////////////////////////////////
 /// ////////     PRODUCTS API     ///////////
 /// /////////////////////////////////////////
 
 // General GET request for the products API, default params are 1 page and 5 results per page
-router.get('/products', (req, res) => {  });
+router.get('/products', controllers.getProducts);
 
 // GET request that returns all product level information for a specified product id.
-router.get('/products/:product_id', (req, res) => {  });
+router.get('/products/:product_id', controllers.getProductInfo);
 
 // GET request that returns all the styles available for the given product.
-router.get('/products/:product_id/styles', (req, res) => {  });
+router.get('/products/:product_id/styles', controllers.getStyles);
 
 // GET request that returns the id's of products related to the product specified.
-router.get('/products/:product_id/related', (req, res) => {  });
+router.get('/products/:product_id/related', controllers.getRelated);
 
 module.exports = router;
 
