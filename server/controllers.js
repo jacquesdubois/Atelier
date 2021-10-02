@@ -4,6 +4,7 @@ module.exports = {
     getProducts: (req, res) => {
         const page = req.query.page || 1;
         const count = req.query.count || 5;
+        res.header("Access-Control-Allow-Origin", "*");
         models.getProducts(page, count, (err, data) => {
             err
             ? res.status(500).send('Error getting products')
@@ -13,6 +14,7 @@ module.exports = {
 
     getProductInfo: (req, res) => {
         const product_id = req.params.product_id;
+        res.header("Access-Control-Allow-Origin", "*");
         models.getProductInfo(product_id, (err, data) => {
             err
             ? res.status(500).send('Error getting product info')
@@ -22,6 +24,7 @@ module.exports = {
 
     getStyles: (req, res) => {
         const product_id = req.params.product_id;
+        res.header("Access-Control-Allow-Origin", "*");
         models.getStyles(product_id, (err, data) => {
             err
             ? res.status(500).send('Error getting product styles')
@@ -31,6 +34,7 @@ module.exports = {
 
     getRelated: (req, res) => {
         const product_id = req.params.product_id;
+        res.header("Access-Control-Allow-Origin", "*");
         models.getRelated(product_id, (err, data) => {
             err
             ? res.status(500).send('Error getting related products')

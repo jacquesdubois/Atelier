@@ -13,7 +13,7 @@ axios.get('http://localhost:5000/products')
 
 var startTime = performance.now()
 
-axios.get('http://localhost:5000/products/999999')
+axios.get('http://localhost:5000/products/22')
     .then(() => {
         var endTime = performance.now()
         console.log(`Call to getProductInfo took ${endTime - startTime} milliseconds`)
@@ -22,7 +22,7 @@ axios.get('http://localhost:5000/products/999999')
 
 var startTime = performance.now()
 
-axios.get('http://localhost:5000/products/999999/styles')
+axios.get('http://localhost:5000/products/22/styles')
     .then(() => {
         var endTime = performance.now()
         console.log(`Call to getProductStyles took ${endTime - startTime} milliseconds`)
@@ -31,7 +31,7 @@ axios.get('http://localhost:5000/products/999999/styles')
 
 var startTime = performance.now()
 
-axios.get('http://localhost:5000/products/999999/related')
+axios.get('http://localhost:5000/products/22/related')
     .then(() => {
         var endTime = performance.now()
         console.log(`Call to getRelatedProducts took ${endTime - startTime} milliseconds`)

@@ -1,5 +1,4 @@
-const { response } = require('express');
-const db = require('../db/clientIndex.js');
+const db = require('../db/poolIndex.js');
 
 module.exports = {
     getProducts: (page, count, callback) => {
