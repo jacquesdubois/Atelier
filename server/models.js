@@ -27,6 +27,7 @@ module.exports = {
                 LEFT JOIN skus
                     ON skus.style_id = styles.id
                 WHERE styles.product_id = ${product_id}
+                ORDER BY styles.id
         `)
         .then((data) => {
             //declare output with product id in it and results as the second key
