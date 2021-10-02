@@ -1,6 +1,8 @@
 const { performance } = require('perf_hooks');
 const axios = require('axios');
 
+const num = Math.floor(Math.random() * 1000011);
+
 var startTime = performance.now()
 
 axios.get('http://localhost:5000/products')
@@ -13,7 +15,7 @@ axios.get('http://localhost:5000/products')
 
 var startTime = performance.now()
 
-axios.get('http://localhost:5000/products/22')
+axios.get(`http://localhost:5000/products/${num}`)
     .then(() => {
         var endTime = performance.now()
         console.log(`Call to getProductInfo took ${endTime - startTime} milliseconds`)
@@ -22,7 +24,7 @@ axios.get('http://localhost:5000/products/22')
 
 var startTime = performance.now()
 
-axios.get('http://localhost:5000/products/22/styles')
+axios.get(`http://localhost:5000/products/${num}/styles`)
     .then(() => {
         var endTime = performance.now()
         console.log(`Call to getProductStyles took ${endTime - startTime} milliseconds`)
@@ -31,7 +33,7 @@ axios.get('http://localhost:5000/products/22/styles')
 
 var startTime = performance.now()
 
-axios.get('http://localhost:5000/products/22/related')
+axios.get(`http://localhost:5000/products/${num}/related`)
     .then(() => {
         var endTime = performance.now()
         console.log(`Call to getRelatedProducts took ${endTime - startTime} milliseconds`)

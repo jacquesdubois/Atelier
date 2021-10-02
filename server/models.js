@@ -79,5 +79,22 @@ module.exports = {
         .catch((err) => {
             callback(err);
         })
+    },
+
+    deleteProduct: (product_id, callback) => {
+        db.query(`DELETE FROM styles, featured, related WHERE product_id = ${product_id}`)
+            .then(() => {
+                db.query(`DELETE FROM products WHERE id = ${product_id}`)
+                    .then(() => callback(null, `Product #${product_id} Deleted`))
+            })
+            .catch((err) => callaback(err));
+    },
+
+    createProduct: (data, callback) => {
+        db.query(`INSERT INTO products(id, name, slogan, description, category, default_price)
+                    VALUES (${data.product_id}, ${data.name}, ${data.slogan}, ${data.description},
+                        ${data.category}, ${data.default_price})`)
+            .then(() => callback(null, `Product #${data.product_id} Created`))
+            .catch((err) => callback(err));
     }
 };

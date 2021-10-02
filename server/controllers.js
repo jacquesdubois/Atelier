@@ -40,5 +40,25 @@ module.exports = {
             ? res.status(500).send('Error getting related products')
             : res.status(200).send(data);
         })
+    },
+
+    deleteProduct: (req, res) => {
+        const product_id = req.params.product_id;
+        res.header("Access-Control-Allow-Origin", "*");
+        models.deleteProduct(product_id, (err, data) => {
+            err
+            ? res.status(500).send('Error deleting product')
+            : res.status(200).send(data);
+        })
+    },
+
+    createProduct: (req, res) => {
+        const data = req.body;
+        res.header("Access-Control-Allow-Origin", "*");
+        models.deleteProduct(data, (err, data) => {
+            err
+            ? res.status(500).send('Error deleting product')
+            : res.status(200).send(data);
+        })
     }
 };

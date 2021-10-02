@@ -18,6 +18,12 @@ router.get('/products/:product_id/styles', controllers.getStyles);
 // GET request that returns the id's of products related to the product specified.
 router.get('/products/:product_id/related', controllers.getRelated);
 
+// DELETE request that removes a product and from the db (products, styles, features, and related tables)
+router.delete('/products/:product_id/delete', controllers.deleteProduct)
+
+// POST request that creates a new product in the products table if the provided id is not already taken
+router.post('/products/create', controllers.createProduct);
+
 module.exports = router;
 
 // Other Endpoints are below
