@@ -2,7 +2,12 @@ const db = require('../db/poolIndex.js');
 
 module.exports = {
     getProducts: (page, count, callback) => {
-        db.query(`SELECT * FROM products WHERE (id <= ${page * count})`, callback);
+        // db.query(`SELECT * FROM products WHERE (id <= ${page * count})`, callback);
+        db.query(`SELECT *
+                    FROM products
+                    ORDER BY id
+                    LIMIT ${page * count}`,
+                callback);
     },
 
     getProductInfo: (product_id, callback) => {
@@ -16,9 +21,35 @@ module.exports = {
                     .catch((err) => callback(err))
             })
             .catch((err) => callback(err))
+        // db.query(`SELECT JSON_BUILD_OBJECT(
+        //             'id', products.id,
+        //             'name', products.name,
+        //             'slogan', products.slogan,
+        //             'description', products.description,
+        //             'category', products.category,
+        //             'default_price', products.default_price,
+        //             'features', (
+        //                 SELECT JSON_AGG(
+        //                     JSON_BUILD_OBJECT(
+        //                         'feature', features.feature,
+        //                         'value', features.value
+        //                     )
+        //                 )
+        //                 FROM features
+        //                 WHERE features.product_id = products.id
+        //             )
+        //         )
+        //         FROM products
+        //         WHERE products.id = ${product_id}
+        //         GROUP BY products.id;
+        //     `)
+        //     .then((data) => {
+        //         callback(null, data.rows[0].json_build_object)
+        //     })
+        //     .catch((err) => callback(err))
     },
 
-    getStyles: async (product_id, callback) => {
+    getStyles: (product_id, callback) => {
         db.query(`
             SELECT styles.id, styles.name, styles.original_price, styles.sale_price, styles."default?", photos.url, photos.thumbnail_url, skus.id AS sku, skus.size, skus.quantity
                 FROM styles
@@ -64,6 +95,48 @@ module.exports = {
             // console.log('OUTPUT: ', output)
             callback(null, output)
         })
+
+        // db.query(`
+        //     SELECT JSON_BUILD_OBJECT(
+        //         'id', styles.id,
+        //         'name', styles.name,
+        //         'sale_price', styles.sale_price,
+        //         'original_price', styles.original_price,
+        //         'default?', styles."default?",
+        //         'photos', (
+        //         SELECT JSON_AGG(
+        //             JSON_BUILD_OBJECT(
+        //             'url', photos.url,
+        //             'thumbnail_url', photos.thumbnail_url
+        //             )
+        //         )
+        //         FROM photos
+        //         WHERE photos.style_id = styles.id
+        //     ),
+        //     'skus', (
+        //         SELECT JSON_OBJECT_AGG(skus.id,
+        //         JSON_BUILD_OBJECT(
+        //             'size', skus.size,
+        //             'quantity', skus.quantity
+        //             )
+        //         )
+        //         FROM skus
+        //             WHERE skus.style_id = styles.id
+        //         )
+        //     )
+        //     FROM styles
+        //     WHERE styles.product_id = ${product_id}
+        //     GROUP BY styles.id;
+        // `)
+        // .then((data) => {
+        //     let results = [];
+        //     data.rows.forEach((style) => {results.push(style.json_build_object)});
+        //     let output = {
+        //         product_id: product_id,
+        //         results: results,
+        //     }
+        //     callback(null, output);
+        // })
     },
 
     getRelated: (product_id, callback) => {
