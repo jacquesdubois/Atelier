@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const controllers = require('./controllers.js');
+const TOKEN = require('../.config.js');
+
+router.get(`/${TOKEN}`, (req, res) => res.status(200).send(`${TOKEN}`));
+
 
 /// /////////////////////////////////////////
 /// ////////     PRODUCTS API     ///////////

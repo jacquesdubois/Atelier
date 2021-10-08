@@ -13,3 +13,6 @@
 
 # CSV Data
 /data
+
+# Loader.io Config Token
+.config.js
