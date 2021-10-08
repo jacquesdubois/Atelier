@@ -16,9 +16,13 @@ module.exports = {
         const product_id = req.params.product_id;
         res.header("Access-Control-Allow-Origin", "*");
         models.getProductInfo(product_id, (err, data) => {
-            err
-            ? res.status(500).send('Error getting product info')
-            : res.status(200).send(data);
+            if (err) {
+                console.log('Error');
+                res.status(500).send('Error getting product info')
+            } else {
+                console.log('Success');
+                res.status(200).send(data);
+            }
         })
     },
 
@@ -26,9 +30,13 @@ module.exports = {
         const product_id = req.params.product_id;
         res.header("Access-Control-Allow-Origin", "*");
         models.getStyles(product_id, (err, data) => {
-            err
-            ? res.status(500).send('Error getting product styles')
-            : res.status(200).send(data);
+            if (err) {
+                console.log('Error');
+                res.status(500).send('Error getting product styles')
+            } else {
+                console.log('Success');
+                res.status(200).send(data);
+            }
         })
     },
 
