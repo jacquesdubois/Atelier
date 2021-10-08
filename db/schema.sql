@@ -2,19 +2,17 @@
 -- CREATE DATABASE CatwalkOverview;
 
 CREATE TABLE products(
-    id INT UNIQUE NOT NULL,
+    id SERIAL UNIQUE NOT NULL,
     name VARCHAR(30) NOT NULL,
     slogan VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     category VARCHAR(30) NOT NULL,
     default_price INT NOT NULL,
-    -- created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP CHECK (updated_at >= created_at),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE features(
-    id INT UNIQUE NOT NULL,
+    id SERIAL UNIQUE NOT NULL,
     product_id INT NOT NULL,
     feature VARCHAR(30) NOT NULL,
     value VARCHAR(30),
@@ -23,7 +21,7 @@ CREATE TABLE features(
 );
 
 CREATE TABLE related(
-    id INT UNIQUE NOT NULL,
+    id SERIAL UNIQUE NOT NULL,
     product_id INT NOT NULL,
     related_id INT NOT NULL,
     PRIMARY KEY (id),
@@ -31,7 +29,7 @@ CREATE TABLE related(
 );
 
 CREATE TABLE styles(
-    id INT UNIQUE NOT NULL,
+    id SERIAL UNIQUE NOT NULL,
     product_id INT NOT NULL,
     name VARCHAR(30) NOT NULL,
     sale_price INT CHECK (sale_price = null OR sale_price <= original_price),
@@ -42,7 +40,7 @@ CREATE TABLE styles(
 );
 
 CREATE TABLE skus(
-    id INT UNIQUE NOT NULL,
+    id SERIAL UNIQUE NOT NULL,
     style_id INT,
     size VARCHAR(10) NOT NULL,
     quantity INT NOT NULL,
@@ -51,10 +49,20 @@ CREATE TABLE skus(
 );
 
 CREATE TABLE photos(
-    id INT UNIQUE NOT NULL,
+    id SERIAL UNIQUE NOT NULL,
     style_id INT NOT NULL,
     url TEXT NOT NULL,
     thumbnail_url TEXT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (style_id) REFERENCES styles (id)
 );
+
+CREATE INDEX product_id_features_index ON features (product_id);
+
+CREATE INDEX product_id_styles_index ON styles (product_id);
+
+CREATE INDEX product_id_related_index ON related (product_id);
+
+CREATE INDEX style_id_photos_index ON photos (style_id);
+
+CREATE INDEX style_id_skus_index ON skus (style_id);
